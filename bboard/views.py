@@ -22,5 +22,17 @@ def first(request):
 class ClassEndpointView(TemplateView):              #Пример класса-эндпоинта
     template_name = 'first.html'
 
+    http_method_names =[        #Методы, которые принимает класс
+        "get",
+    ]
+
+
+def get_obj_by_id(request, obj_id):                 #функция с плавающим эндпоинтом
+    objs = prod.objects.filter(id=obj_id)           #Здесь я сравниваю полученный номер id с id с моей таблицы
+    if objs:
+        obj = objs[0].title
+        return HttpResponse(obj)
+    else:
+        return HttpResponse("Not Found")
 
     #Изучить все методы запроса с TemplateView

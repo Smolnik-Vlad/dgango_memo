@@ -120,4 +120,4 @@ STATIC_URL = 'static/' #путь для всяких статических шт
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField' #тип данных, который использутся в приложениях по умолчанию, всегда подставляется в новое созданное приложение в apps
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField' #тип данных, который использутся в приложениях по умолчанию (id такого типа), всегда подставляется в новое созданное приложение в apps
