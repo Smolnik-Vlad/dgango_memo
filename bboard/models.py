@@ -1,4 +1,6 @@
+from django.contrib.auth.models import User
 from django.db import models
+from django.db.models import SET_NULL
 
 
 # Create your models here. то есть для моделей (классов-таблиц)
@@ -24,20 +26,20 @@ class FirstModule(models.Model):
 class Book(models.Model):
     title = models.CharField(
         max_length=200,
-        verbose_name='book name', # переименование поля в поле админа
+        verbose_name='book_Name', # переименование поля в поле админа
         help_text='Book name', #текст, который описывает поле снизу поля в админке
         #default="Unknown book" #параметр по умолчанию
-        #unique=True #уникальность
-        #unique_for_date = 'published_date' #то есть работает как валидация, что нельзя вводить одно и то же поля в заданный период
+        unique=True,  #уникальность
+        unique_for_date = 'published_date', #то есть работает как валидация, что нельзя вводить одно и то же поля в заданный период
         #null=True #разрешает не заполнять поле, конфликтует с default
-        blank=True, #разрешает хранить пустые значения (не null)
-        db_index=True, #сокращает поиск, ПРОЧИТАТЬ
+        # blank=True, #разрешает хранить пустые значения (не null)
+        # db_index=True, #сокращает поиск, ПРОЧИТАТЬ
         db_column='change_name' #просто переименовать поле
 
     )
 
     published_date = models.DateTimeField(
-        null=True,
+        auto_now=True,
         editable=False #запрещаем изменять поле через админ панель
 
     )
@@ -46,7 +48,40 @@ class Book(models.Model):
         primary_key=True
     )
 
-    #slug = models.slugField(null=True, editable=False)
+    # slug = models.slugField(null=True, editable=False)
 
-   # def save(self, *a, )
+    # def save(self, *a, )
+    author = models.ManyToManyField("Author")
+
+    def __str__(self):
+        return self.title
+
+    @property
+    def books_count(self):
+        return self.author.count()
+
+    class Meta:
+        verbose_name = "Книга"  # переименование всей таблицы в админке
+        verbose_name_plural = "Книги" #переименование таблицы во множественном числе (тоже в админке)
+        ordering = ('-title',)  # сортировка записей в обратном порядке (т.к. -)
+        unique_together=('title', 'published_date') #уникальность: не может быть создана запись с одинаковым именем и датой вместе
+
+
+
+
+
+class Author(models.Model):
+    name = models.CharField(max_length=200, verbose_name="Author's name")
+
+
+
+class Employer(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+
+
+
+
+
+
+
 
