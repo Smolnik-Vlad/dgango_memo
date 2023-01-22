@@ -4,7 +4,7 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from django.views.generic import TemplateView
 
-from .models import product as prod, Book
+from .models import Book
 
 import random
 import string
@@ -14,8 +14,8 @@ import string
 
 def index(request):
   s = 'Список объявлений\r\n\r\n\r\n'
-  for bb in prod.objects.order_by('-published'):
-    s += bb.title + '\r\n' + bb.content + '\r\n\r\n'
+  # for bb in prod.objects.order_by('-published'):
+  #   s += bb.title + '\r\n' + bb.content + '\r\n\r\n'
   return HttpResponse(s, content_type='text/plain; charset=utf-8')
 
 def nextPage(request):
@@ -33,12 +33,12 @@ class ClassEndpointView(TemplateView):              #Пример класса-�
 
 
 def get_obj_by_id(request, obj_id):                 #функция с плавающим эндпоинтом
-    objs = prod.objects.filter(id=obj_id)           #Здесь я сравниваю полученный номер id с id с моей таблицы
-    if objs:
-        obj = objs[0].title
-        return HttpResponse(obj)
-    else:
-        return HttpResponse("Not Found")
+    #objs = prod.objects.filter(id=obj_id)           #Здесь я сравниваю полученный номер id с id с моей таблицы
+    # if objs:
+    #     obj = objs[0].title
+    #     return HttpResponse(obj)
+    # else:
+    return HttpResponse("Not Found")
 
     #Изучить все методы запроса с TemplateView
 

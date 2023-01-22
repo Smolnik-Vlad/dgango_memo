@@ -35,6 +35,12 @@ INSTALLED_APPS = [                      #список с приложениям�
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+
+    'colorfield',
+    'ckeditor',
+
+
     'bboard.apps.BboardConfig'
 ]
 
