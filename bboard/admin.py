@@ -9,8 +9,12 @@ from bboard.models import Book, Author, Category, Employer
 admin.site.register(Book)
 admin.site.register(Author)
 admin.site.register(Category)            #Для того чтобы таблицы отображались в окне админа
-admin.site.register(Employer)
+#admin.site.register(Employer)
 
+
+@admin.register(Employer)
+class EmployerAdmin(admin.ModelAdmin):
+    list_display = ('user', 'boss_name', 'boss_count', 'changed_count')
 
 
 

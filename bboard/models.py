@@ -58,8 +58,21 @@ class Category(models.Model):
 
 class Employer(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    boss=models.ManyToManyField('self', blank=True, related_name='slaves', null=True, default=None)
+    boss=models.ManyToManyField('self', blank=True,  null=True, default=None, related_name='slaves',)
+
     changed_count = models.IntegerField(default=0, editable=False)
+
+    # def save(self, *a, **kw):                           #способ увелеения с перегрузкой
+    #     self.changed_count=self.slaves.count()
+    #     return super(Employer, self).save(*a, **kw)
+
+    @property
+    def boss_count(self):
+        return self.boss.count()
+
+    @property
+    def boss_name(self):
+        return [self.boss.all()[i].user.username for i in range(self.boss.count())]
 
     def __str__(self):
         return self.user.username
@@ -69,4 +82,5 @@ class Employer(models.Model):
         verbose_name = 'Employer'
         ordering=['-user']
         default_related_name = 'employer_set'
+
 
