@@ -39,6 +39,7 @@ INSTALLED_APPS = [                      #список с приложениям�
 
     'colorfield',
     'ckeditor',
+    'rest_framework',
 
 
     'bboard.apps.BboardConfig'

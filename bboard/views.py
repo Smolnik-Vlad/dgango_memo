@@ -31,7 +31,6 @@ class ClassEndpointView(TemplateView):              #Пример класса-�
         "get",
     ]
 
-
 def get_obj_by_id(request, obj_id):                 #функция с плавающим эндпоинтом
     #objs = prod.objects.filter(id=obj_id)           #Здесь я сравниваю полученный номер id с id с моей таблицы
     # if objs:
@@ -41,8 +40,6 @@ def get_obj_by_id(request, obj_id):                 #функция с плав�
     return HttpResponse("Not Found")
 
     #Изучить все методы запроса с TemplateView
-
-
 
 def create_random_user(requests):
     name = '.'.join([random.choice(string.ascii_letters) for i in range(1, random.randint(1, 30))])
